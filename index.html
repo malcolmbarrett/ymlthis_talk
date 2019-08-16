@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>The YAML Problem</title>
+    <meta charset="utf-8" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: inverse
+
+
+
+&lt;img src="ymlthis_title_slide.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="rmarkdown_wizards.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+
+.pull-right[Artwork by @allison_horst]
+
+---
+class: middle
+
+&lt;img src="rmarkdownflow.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="yml_sources.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## *Even the creator of R Markdown and knitr isn't crazy about YAML*
+
+&lt;img src="yihui_tweet.png" width="75%" height="75%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, middle, center
+
+# *YAML:*
+
+# **Yet Another Markup Language**
+
+# **YAML Ain't Markup Language**
+
+---
+
+
+&lt;img src="ymlthis_yaml_example.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="ymlthis_yaml_example_noted.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="ymlthis_yaml_example_noted2.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+```text
+library(ymlthis)
+as_yml(
+"title: Annual Report
+author: Malcolm Barrett
+date: '`r Sys.Date()`'
+output:
+  pdf_document:
+    toc: true
+"
+) %&gt;% draw_yml_tree()
+```
+
+---
+
+
+```text
+library(ymlthis)
+as_yml(
+"title: Annual Report
+author: Malcolm Barrett
+date: '`r Sys.Date()`'
+output:
+  pdf_document:
+    toc: true
+"
+*) %&gt;% draw_yml_tree()
+```
+
+---
+
+
+```text
+library(ymlthis)
+as_yml(
+"title: Annual Report
+author: Malcolm Barrett
+date: '`r Sys.Date()`'
+output:
+  pdf_document:
+    toc: true
+"
+) %&gt;% draw_yml_tree()
+```
+
+```
+├── title: Annual Report
+├── author: Malcolm Barrett
+├── date: '`r Sys.Date()`'
+*└── output:
+*    └── pdf_document:
+*        └── toc: true
+```
+
+
+---
+
+class: center
+
+## ⚠️ **YAML fails silently**
+
+&lt;img src="https://media.giphy.com/media/2gcmmuaqnfMt2/giphy.gif" width="75%" height="75%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Introducing ymlthis 
+
+---
+
+# Introducing ymlthis 
+
+## ✔️ **Write YAML**
+---
+
+# Introducing ymlthis 
+
+## ~~✔️ Write YAML~~
+## ✔️ **Document YAML**
+
+---
+
+# Introducing ymlthis 
+
+## ~~✔️ Write YAML~~
+## ~~✔️ Document YAML~~
+## ✔️ **Improve R Markdown Workflows**
+
+---
+
+# Introducing ymlthis 
+
+## ~~✔️ Write YAML~~
+## ~~✔️ Document YAML~~
+## ~~✔️ Improve R Markdown Workflows~~
+## 📥 **Validation**
+
+---
+
+# Writing YAML
+
+
+```text
+yml()
+```
+
+---
+
+# Writing YAML
+
+
+```text
+yml()
+```
+
+```
+---
+author: Malcolm Barrett
+date: '`r format(Sys.Date())`'
+---
+```
+
+---
+
+# Writing YAML
+
+
+```text
+yml() %&gt;% 
+* yml_output(
+*   pdf_document(toc = TRUE),
+    html_document()
+  )
+```
+---
+
+# Writing YAML
+
+
+```text
+yml() %&gt;% 
+* yml_output(
+*   pdf_document(toc = TRUE),
+    html_document()
+  )
+```
+
+```
+---
+author: Malcolm Barrett
+date: '`r format(Sys.Date())`'
+*output:
+*  pdf_document:
+*    toc: true
+  html_document: default
+---
+```
+
+
+---
+
+# Writing YAML
+
+
+```text
+yml() %&gt;%
+* yml_author(
+*   c("Yihui Xie", "Hadley Wickham"),
+*   affiliation = "RStudio"
+  ) %&gt;%
+  yml_date("07/04/2019") %&gt;%
+  yml_title("Reproducible Research in R") %&gt;% 
+* yml_category(c("r", "reprodicibility")) %&gt;%
+  yml_output(
+    pdf_document(
+      keep_tex = TRUE,
+      includes = includes2(after_body = "footer.tex")
+    )
+  ) %&gt;%
+* yml_latex_opts(biblio_style = "apalike")
+```
+
+---
+
+# Writing YAML
+
+
+```
+---
+author:
+*- name: Yihui Xie
+*  affiliation: RStudio
+*- name: Hadley Wickham
+*  affiliation: RStudio
+date: 07/04/2019
+title: Reproducible Research in R
+*category:
+*- r
+*- reprodicibility
+output:
+  pdf_document:
+    keep_tex: true
+    includes:
+      after_body: footer.tex
+*biblio-style: apalike
+---
+```
+
+---
+
+class: center, middle
+
+# R Markdown Extensions
+
+.large[
+|  package|  output function | top-level YAML |
+|--:|--:|--:|
+| bookdown |  &lt;span style='color:green'&gt;✓&lt;/span&gt; |  &lt;span style='color:green'&gt;✓&lt;/span&gt; |
+| blogdown |  &lt;span style='color:green'&gt;✓&lt;/span&gt; |  &lt;span style='color:green'&gt;✓&lt;/span&gt; |
+| pkgdown |  &lt;span style='color:green'&gt;✓&lt;/span&gt; |  &lt;span style='color:green'&gt;✓&lt;/span&gt; |
+| pagedown |  &lt;span style='color:green'&gt;✓&lt;/span&gt; | &lt;span style='color:green'&gt;✓&lt;/span&gt; |
+| rticles |  &lt;span style='color:green'&gt;✓&lt;/span&gt; |  &lt;span style='color:green'&gt;✓&lt;/span&gt; |
+| distill |  &lt;span style='color:green'&gt;✓&lt;/span&gt; |  &lt;span style='color:green'&gt;✓&lt;/span&gt; |
+| learnr |  &lt;span style='color:green'&gt;✓&lt;/span&gt; |  &lt;span style='color:red'&gt;✗&lt;/span&gt;|
+| xaringan |  &lt;span style='color:green'&gt;✓&lt;/span&gt; |  &lt;span style='color:red'&gt;✗&lt;/span&gt;|
+| revealjs |  &lt;span style='color:green'&gt;✓&lt;/span&gt; |  &lt;span style='color:red'&gt;✗&lt;/span&gt;|
+| flexdashboard |  &lt;span style='color:green'&gt;✓&lt;/span&gt; |  &lt;span style='color:red'&gt;✗&lt;/span&gt;|
+]
+
+---
+
+# Documenting YAML
+
+## ?`yml_*()`
+
+---
+
+# Documenting YAML
+
+&lt;img src="field_guide.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Improving R Markdown Workflows
+
+&lt;img src="adding.png" width="50%" height="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Improving R Markdown Workflows
+## `use_yml()`
+
+
+
+```text
+yml() %&gt;%
+  use_yml()
+```
+
+```
+  ---
+  author: Malcolm Barrett
+  date: '`r format(Sys.Date())`'
+  ---
+● Paste into R Markdown or YAML file
+```
+
+```text
+# Places YAML on your cliboard
+```
+
+
+---
+
+# Improving R Markdown Workflows
+## `use_rmarkdown()`
+
+
+```text
+yml() %&gt;%
+  use_rmarkdown()
+# opens a new R Markdown file
+```
+
+---
+
+# Improving R Markdown Workflows
+
+
+```text
+render_rmd &lt;- function(output) {
+  yml() %&gt;% 
+    yml_date(lubridate::today() + 1) %&gt;% 
+    yml_title(glue::glue("Report with output type {output}")) %&gt;% 
+    yml_toplevel(
+      output = output
+    ) %&gt;% 
+    use_rmarkdown(path = glue::glue("rmd_{output}.Rmd")) %&gt;% 
+    rmarkdown::render()
+}
+
+purrr::walk(
+  c("html_document", "pdf_document", "word_document"), 
+  render_rmd
+)
+```
+
+
+---
+
+### Write to `.Rmd` files
+
+|  function | action |
+|--:|--:|
+|  `use_rmarkdown()` | Write `yml` to a `.Rmd` file  |
+|  `use_index_rmd()` | Write `yml` to `Index.Rmd`  |
+
+
+### Write to `.yml` files
+
+|  function | action |
+|--:|--:|
+|  `use_yml_file()` |  Write `yml` to a file |
+|  `use_bookdown_yml()`|  Write `yml` to `_bookdown.yml` |
+|  `use_navbar_yml()` | Write `yml` to `_navbar.yml` |
+|  `use_output_yml()` | Write `yml` to `_output.yml` |
+|  `use_pkgdown_yml()` | Write `yml` to `_pkgdown.yml`  |
+|  `use_site_yml()` | Write `yml` to `_site.yml` |
+
+---
+
+class: inverse, center, middle
+
+# visit the site for tutorials and documentation
+# [**https://r-lib.github.io/ymlthis**](https://r-lib.github.io/ymlthis)
+
+---
+
+class: inverse, center, middle
+
+![](https://media.giphy.com/media/3oz8xIsloV7zOmt81G/giphy.gif)
+
+### <i class="fab  fa-github "></i> [malcolmbarrett](https://github.com/malcolmbarrett/)
+### <i class="fab  fa-twitter "></i> [@malco_barrett](https://twitter.com/malco_barrett)
+
+Slides created via the R package [xaringan](https://github.com/yihui/xaringan).
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

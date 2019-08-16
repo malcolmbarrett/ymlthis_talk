@@ -1,0 +1,10 @@
+---
+author: Malcolm Barrett
+date: '2019-08-13'
+title: Report with output type html_document
+output: html_document
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
