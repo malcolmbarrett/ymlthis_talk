@@ -14,7 +14,7 @@ class: inverse
 
 
 
-&lt;img src="ymlthis_title_slide.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="ymlthis_title_slide_sb.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -58,6 +58,14 @@ class: inverse, middle, center
 ---
 
 &lt;img src="ymlthis_yaml_example_noted2.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="ymlthis_yaml_example_noted3.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="yaml_example_noted4.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -119,7 +127,7 @@ output:
 
 ---
 
-class: center
+class: center, inverse
 
 ## ⚠️ **YAML fails silently**
 
@@ -298,15 +306,12 @@ class: center, middle
 
 ---
 
-# Documenting YAML
+&lt;img src="ymlthis_fieldguide.jpeg" width="85%" height="85%" style="display: block; margin: auto;" /&gt;
 
-&lt;img src="field_guide.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
-
+.pull-right[Image by @dataandme]
 ---
 
-# Improving R Markdown Workflows
-
-&lt;img src="adding.png" width="50%" height="50%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://i.imgur.com/5dFkcx9.gif" width="75%" height="75%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -351,23 +356,49 @@ yml() %&gt;%
 
 
 ```text
-render_rmd &lt;- function(output) {
-  yml() %&gt;% 
-    yml_date(lubridate::today() + 1) %&gt;% 
-    yml_title(glue::glue("Report with output type {output}")) %&gt;% 
-    yml_toplevel(
-      output = output
-    ) %&gt;% 
-    use_rmarkdown(path = glue::glue("rmd_{output}.Rmd")) %&gt;% 
-    rmarkdown::render()
-}
-
-purrr::walk(
-  c("html_document", "pdf_document", "word_document"), 
-  render_rmd
-)
+bookdown_yaml &lt;- yml() %&gt;% yml_output(bookdown::pdf_document2())
+*use_yml_defaults(bookdown_yaml)
 ```
 
+---
+
+# Improving R Markdown Workflows
+
+
+```text
+bookdown_yaml &lt;- yml() %&gt;% yml_output(bookdown::pdf_document2())
+use_yml_defaults(bookdown_yaml)
+```
+
+```
+*  options(ymlthis.default_yml = "author: Malcolm Barrett
+*  date: '`r format(Sys.Date())`'
+*  output: bookdown::pdf_document2")
+● Run interactively or paste into .Rprofile (perhaps using `usethis::edit_r_profile()`)
+```
+
+
+---
+
+# Improving R Markdown Workflows
+
+
+```text
+bookdown_yaml &lt;- yml() %&gt;% yml_output(bookdown::pdf_document2())
+use_yml_defaults(bookdown_yaml) 
+```
+
+```
+  options(ymlthis.default_yml = "author: Malcolm Barrett
+  date: '`r format(Sys.Date())`'
+  output: bookdown::pdf_document2")
+● Run interactively or paste into .Rprofile (perhaps using `usethis::edit_r_profile()`)
+```
+
+
+```text
+*use_rmarkdown()
+```
 
 ---
 

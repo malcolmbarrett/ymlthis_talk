@@ -21,7 +21,7 @@ cross <- function() "<span style='color:red'>\u2717</span>"
 ```
 
 ```{r, echo=FALSE, out.width="100%", out.height="100%"}
-knitr::include_graphics("ymlthis_title_slide.png")
+knitr::include_graphics("ymlthis_title_slide_sb.png")
 ```
 
 ---
@@ -83,6 +83,18 @@ knitr::include_graphics("ymlthis_yaml_example_noted2.png")
 
 ---
 
+```{r, echo=FALSE, out.width="100%", out.height="100%"}
+knitr::include_graphics("ymlthis_yaml_example_noted3.png")
+```
+
+---
+
+```{r, echo=FALSE, out.width="100%", out.height="100%"}
+knitr::include_graphics("yaml_example_noted4.png")
+```
+
+---
+
 ```{r, comment = "", eval=FALSE}
 library(ymlthis)
 as_yml(
@@ -129,7 +141,7 @@ output:
 
 ---
 
-class: center
+class: center, inverse
 
 ## `r emojifont::emoji("warning")` **YAML fails silently**
 
@@ -283,18 +295,15 @@ class: center, middle
 
 ---
 
-# Documenting YAML
-
-```{r, echo=FALSE, out.width="100%", out.height="100%"}
-knitr::include_graphics("field_guide.png")
+```{r, echo=FALSE, out.width="85%", out.height="85%"}
+knitr::include_graphics("ymlthis_fieldguide.jpeg")
 ```
 
+.pull-right[Image by @dataandme]
 ---
 
-# Improving R Markdown Workflows
-
-```{r, echo=FALSE, out.width="50%", out.height="50%"}
-knitr::include_graphics("adding.png")
+```{r, echo=FALSE, out.width="75%", out.height="75%"}
+knitr::include_graphics("https://i.imgur.com/5dFkcx9.gif")
 ```
 
 ---
@@ -325,24 +334,33 @@ yml() %>%
 
 # Improving R Markdown Workflows
 
-```{r,eval=FALSE}
-render_rmd <- function(output) {
-  yml() %>% 
-    yml_date(lubridate::today() + 1) %>% 
-    yml_title(glue::glue("Report with output type {output}")) %>% 
-    yml_toplevel(
-      output = output
-    ) %>% 
-    use_rmarkdown(path = glue::glue("rmd_{output}.Rmd")) %>% 
-    rmarkdown::render()
-}
-
-purrr::walk(
-  c("html_document", "pdf_document", "word_document"), 
-  render_rmd
-)
+```{r, eval=FALSE}
+bookdown_yaml <- yml() %>% yml_output(bookdown::pdf_document2())
+use_yml_defaults(bookdown_yaml) #<<
 ```
 
+---
+
+# Improving R Markdown Workflows
+
+```{r, highlight.output=1:3}
+bookdown_yaml <- yml() %>% yml_output(bookdown::pdf_document2())
+use_yml_defaults(bookdown_yaml)
+```
+
+
+---
+
+# Improving R Markdown Workflows
+
+```{r}
+bookdown_yaml <- yml() %>% yml_output(bookdown::pdf_document2())
+use_yml_defaults(bookdown_yaml) 
+```
+
+```{r,eval=FALSE}
+use_rmarkdown() #<<
+```
 
 ---
 
