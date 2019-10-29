@@ -14,7 +14,7 @@ class: inverse
 
 
 
-&lt;img src="ymlthis_title_slide_sb.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="ymlthis_title_slide_oc.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -311,7 +311,7 @@ class: center, middle
 .pull-right[Image by @dataandme]
 ---
 
-&lt;img src="https://i.imgur.com/5dFkcx9.gif" width="75%" height="75%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://i.imgur.com/BkzGueG.gif" width="60%" height="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -426,7 +426,7 @@ use_yml_defaults(bookdown_yaml)
 class: inverse, center, middle
 
 # visit the site for tutorials and documentation
-# [**https://r-lib.github.io/ymlthis**](https://r-lib.github.io/ymlthis)
+# [**http://ymlthis.r-lib.org**](http://ymlthis.r-lib.org)
 
 ---
 
@@ -484,7 +484,24 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 (function() {

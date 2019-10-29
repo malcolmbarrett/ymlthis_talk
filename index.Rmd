@@ -21,7 +21,7 @@ cross <- function() "<span style='color:red'>\u2717</span>"
 ```
 
 ```{r, echo=FALSE, out.width="100%", out.height="100%"}
-knitr::include_graphics("ymlthis_title_slide_sb.png")
+knitr::include_graphics("ymlthis_title_slide_oc.png")
 ```
 
 ---
@@ -302,8 +302,8 @@ knitr::include_graphics("ymlthis_fieldguide.jpeg")
 .pull-right[Image by @dataandme]
 ---
 
-```{r, echo=FALSE, out.width="75%", out.height="75%"}
-knitr::include_graphics("https://i.imgur.com/5dFkcx9.gif")
+```{r, echo=FALSE, out.width="60%", out.height="60%"}
+knitr::include_graphics("https://i.imgur.com/BkzGueG.gif")
 ```
 
 ---
@@ -388,7 +388,7 @@ use_rmarkdown() #<<
 class: inverse, center, middle
 
 # visit the site for tutorials and documentation
-# [**https://r-lib.github.io/ymlthis**](https://r-lib.github.io/ymlthis)
+# [**http://ymlthis.r-lib.org**](http://ymlthis.r-lib.org)
 
 ---
 
